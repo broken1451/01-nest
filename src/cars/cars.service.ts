@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 // todos los servicios son providers, no todos los providers son servicios
 @Injectable()
 export class CarsService {
@@ -21,14 +21,23 @@ export class CarsService {
         },
     ];
 
-    constructor(){}
+    constructor() { }
 
-    findAll(){
+    public findAll() {
         return this.cars
     }
 
-    findOneById(id:number){
+    public findOneById(id: number) {
         const car = this.cars.find(car => car.id === id)
+        if (!car) {
+            // throw new NotFoundException({
+            //     status: 404,
+            //     msg: `Car with id ${id} not found`
+            // });
+            // manejo de excpciones(Exception filters)
+            throw new NotFoundException(`Car with id ${id} not found`);
+            
+        }
         return car
     }
 }
