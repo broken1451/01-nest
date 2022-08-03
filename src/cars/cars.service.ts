@@ -68,7 +68,7 @@ export class CarsService {
     }
 
     delete(id: string) {
-        console.log({ id });
+        // console.log({ id });
         let carDB: Car = this.findOneById(id);
         this.cars = this.cars.filter(car => car.id !== id);
 
